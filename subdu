@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-# subdu AKA "subvolume du"
-# Written by: crossroads1112
-# Purpose: Get human readable output from btrfs qgroup show
-#
-##################################################
-mount="${1:-"/"}"
-sudo btrfs subvolume list $mount | sed 's/\//\\\\\//g' | awk '{print "sed \"s/"$2 " /"$2 " " $9"/\" "}' | while read line; do echo -n " ${line} |";done | sed 's/|$/\n/' | sed 's/^/sudo btrfs qgroup show \$mount |/' | source /dev/stdin | sed 's/qgroupid/qgroupid subvol/' | awk 'NF>3' | column -t
