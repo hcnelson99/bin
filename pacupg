@@ -244,6 +244,13 @@ quit() { # Run cleanup code upon exit or error
 }
 trap quit EXIT ERR 15 1 2
 
+if [[ $aur == 0 ]]; then
+   if which pacaur > /dev/null; then
+      msg "Pacaur detected... performing AUR upgrade by default...\n"
+      aur=1
+   fi
+fi
+
 msg "Retrieving packages...\n"
 sudo pacman -Syuw $ignoreopts && msg "Done\n"  || exit 2 # Only pull down needed packages. Don't install
 
