@@ -261,7 +261,7 @@ if [[ -z $pkgs ]]; then # No packages to upgrade
     msg "Nothing to update. Aborting.\n" && exit 2
 fi
 
-if pacman -Qqu | grep -q "^linux$";  then # There's a linux kernel upgrade
+if pacman -Qqu | grep -Eq "^(linux|systemd)$";  then # There's a linux kernel upgrade
     boot=1
     snapComment=" + kernel upgrade"
 fi
